@@ -12,7 +12,7 @@ class Board extends React.Component {
             return <BoardRow key={`${idx}`} columns={columns}/>
         });
         return (
-            <div className={"container"} style={{ width: 100, height: 100 }}>
+            <div className={"container"} style={{ width: 250, height: 250 }}>
                 {rows}
             </div>
         );

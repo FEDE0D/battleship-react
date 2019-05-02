@@ -9,14 +9,18 @@ import Board from "../components/Board/Board";
 
 class WelcomeRoute extends PureComponent {
 
+    componentDidMount() {
+        this.props.actions.game.init();
+    }
+
     render() {
         return (
             <div>
                 <h1>WELCOME!</h1>
                 <div style={{ width: 500 }}>
-                    <Board board={this.props.gameBoard}/>
+                    <Board board={this.props.boardPlayer}/>
                 </div>
-                <Link to="/game" >PLAY</Link>
+                <Link to="/game" onClick={() => this.props.actions.game.start()}>PLAY</Link>
             </div>
         )
     }
@@ -29,10 +33,9 @@ class WelcomeRoute extends PureComponent {
  * @param {object} props 
  */
 function mapStateToProps(state, props) {
-    const { status, boardPlayer } = state.game;
+    const { boardPlayer } = state.game;
     return {
-        gameStatus: status,
-        gameBoard: boardPlayer
+        boardPlayer
     }
 }
 
@@ -40,7 +43,8 @@ function mapDispatchToProps(dispatch) {
     return {
         actions: {
             game: {
-                init: (status) => dispatch(GameActions.start(status))
+                init: () => dispatch(GameActions.init()),
+                start: () => dispatch(GameActions.start()),
             }
         }
     }

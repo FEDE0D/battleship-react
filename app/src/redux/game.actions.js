@@ -3,23 +3,45 @@
  * @enum {string}
  */
 const GameActionTypes = {
+    "INIT": "INIT",
     "START": "START",
     "END": "END"
 }
 
 /**
- * Starts the game with a custom status
- * @param {string} status 
+ * Inits the game with a custom status
  */
-function start(status) {
+function init() {
+    return {
+        type: GameActionTypes.INIT,
+        args: null
+    }
+}
+
+/**
+ * Starts the game with a custom status
+ */
+function start() {
     return {
         type: GameActionTypes.START,
-        args: status
+        args: null
+    }
+}
+
+/**
+ * Ends the game
+ */
+function end() {
+    return {
+        type: GameActionTypes.END,
+        args: null
     }
 }
 
 const GameActions = {
-    start
+    init,
+    start,
+    end
 }
 
 export default GameActionTypes;
