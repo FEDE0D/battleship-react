@@ -1,13 +1,52 @@
-import React from "react";
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const WelcomeRoute = () => {
-    return (
-        <div>
-            <h1>WELCOME!</h1>
-            <Link to="/game">PLAY</Link>
-        </div>
-    )
+import "../redux/types";
+import { GameActions } from "../redux/game.actions";
+
+import Board from "../components/Board/Board";
+
+class WelcomeRoute extends PureComponent {
+
+    render() {
+        return (
+            <div>
+                <h1>WELCOME!</h1>
+                <div style={{ width: 500 }}>
+                    <Board board={this.props.gameBoard}/>
+                </div>
+                <Link to="/game" >PLAY</Link>
+            </div>
+        )
+    }
+
 }
 
-export default WelcomeRoute;
+/**
+ * 
+ * @param {ReduxState} state 
+ * @param {object} props 
+ */
+function mapStateToProps(state, props) {
+    const { status, boardPlayer } = state.game;
+    return {
+        gameStatus: status,
+        gameBoard: boardPlayer
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: {
+            game: {
+                init: (status) => dispatch(GameActions.start(status))
+            }
+        }
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(WelcomeRoute);
