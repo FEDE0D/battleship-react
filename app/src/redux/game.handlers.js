@@ -51,7 +51,8 @@ function handleInit(state, action) {
 function handleStart(state, action) {
     return {
         ...state,
-        boardPlayer: randomBoard()
+        boardPlayer: randomBoard(),
+        boardCPU: randomBoard(),
     }
 }
 
